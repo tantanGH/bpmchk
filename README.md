@@ -45,7 +45,7 @@ PCMデータファイル名をコマンドライン引数として指定して�
 
 1. BPMCHK.X で推定BPM値を得る。
 
-2. [kmdgen.py](https://github.com/tantanGH/mp3exp/blob/main/README.md#kmd%E6%AD%8C%E8%A9%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%AB) を使ってKMDテンプレートファイルを作成する。
+2. [KMDGEN.X](https://github.com/tantanGH/kmdgen) を使ってKMDテンプレートファイルを作成する。
 
 3. SMR.X / [MP3EXP.X](https://github.com/tantanGH/mp3exp) で実際に再生しながら 2. のパラメータを微調整する。
 
