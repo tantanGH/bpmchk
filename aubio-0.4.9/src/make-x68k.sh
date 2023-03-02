@@ -29,14 +29,14 @@ function do_compile() {
   for c in $2; do
     echo "compiling ${c}.c in ${1} ..."
 	  ${CC} -S ${CFLAGS} -o _build/${c}.m68k-gas.s ${c}.c
-    if [ $? != 0 ]; then
-      return $?
+    if [ ! -f _build/${c}.m68k-gas.s ]; then
+      return 1
     fi
 	  perl ${GAS2HAS} -i _build/${c}.m68k-gas.s -o _build/${c}.s
 	  rm -f _build/${c}.m68k-gas.s
 	  ${XDEV68K_DIR}/run68/run68 ${HAS} -e -u -w0 ${INCLUDE_FLAGS} _build/${c}.s -o _build/${c}.o
-    if [ $? != 0 ]; then
-      return $?
+    if [ ! -f _build/${c}.o ]; then
+      return 1
     fi
   done
   popd
