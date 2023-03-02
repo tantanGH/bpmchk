@@ -9,8 +9,8 @@ WORKING_DIR=`pwd`
 AUBIO_DIR="${WORKING_DIR}/../aubio-0.4.9/src"
 
 TARGET_FILE="BPMCHK.X"
-DOC_FILE="BMPCHK.DOC"
-ZIP_FILE="../BMPCK010.ZIP"
+DOC_FILE="../BPMCHK.DOC"
+ZIP_FILE="../../BPMCK010.ZIP"
 
 CC=${XDEV68K_DIR}/m68k-toolchain/bin/m68k-elf-gcc
 GAS2HAS="${XDEV68K_DIR}/util/x68k_gas2has.pl -cpu 68000 -inc doscall.inc -inc iocscall.inc"
@@ -66,7 +66,7 @@ function build_bmpchk() {
   done
   ${XDEV68K_DIR}/run68/run68 ${HLK} -i ${HLK_LINK_LIST} -o ${TARGET_FILE}
   rm -f tmp*.\$$\$$\$$
-  zip -9r ${ZIP_FILE} ${DOC_FILE} ${TARGET_FILE}
+  zip -jr ${ZIP_FILE} ${DOC_FILE} ${TARGET_FILE}
   cd ..
   return 0
 }
