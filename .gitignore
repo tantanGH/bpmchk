@@ -1,0 +1,16 @@
+.DS_Store
+
+src/_build
+src/_work
+
+aubio-0.4.9/src/effects/_build/
+aubio-0.4.9/src/io/_build/
+aubio-0.4.9/src/notes/_build/
+aubio-0.4.9/src/onset/_build/
+aubio-0.4.9/src/pitch/_build/
+aubio-0.4.9/src/spectral/_build/
+aubio-0.4.9/src/synth/_build/
+aubio-0.4.9/src/tempo/_build/
+aubio-0.4.9/src/temporal/_build/
+aubio-0.4.9/src/utils/_build/
+aubio-0.4.9/src/_build

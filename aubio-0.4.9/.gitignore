@@ -1,0 +1,92 @@
+*.pyc
+*.~[0-9]~
+*.swp
+
+# gcov generated files
+*.gcno
+*.gcda
+python/lib/aubio/_aubio.*.so
+.coverage
+
+# ignore compiled examples
+RE:examples/[a-z]*
+
+# ignore compiled test programs
+RE:tests/src/test-[a-z_-]*$
+RE:tests/cpp/test-[a-z_-]*$
+
+# only sgml manpages count
+doc/*.1
+
+# cachegrind/callgrind stuff
+**/cachegrind.out.[0-9]*
+**/callgrind.out.[0-9]*
+
+# waf stuff
+.lock-waf*
+.waf-*
+waf
+waflib
+build/
+
+# doxygen
+doc/web/
+doc/full/
+doc/_build/
+
+python/gen
+python/dist
+python/MANIFEST
+python/*.db
+python/*.wav
+
+pip-delete-this-directory.txt
+
+aubio-*.tar.bz2
+aubio-*.zip
+dist/*.tar.gz
+dist/*.whl
+
+# test sounds
+python/tests/sounds
+aubio.egg-info
+.eggs
+.cache
+
+.DS_Store
+src/*.o
+src/*.s
+src/_build/
+src/utils/*.o
+src/utils/*.s
+src/utils/_build/
+src/temporal/*.o
+src/temporal/*.s
+src/temporal/_build/
+src/tempo/*.o
+src/tempo/*.s
+src/tempo/_build/
+src/synth/*.o
+src/synth/*.s
+src/synth/_build/
+src/spectral/*.o
+src/spectral/*.s
+src/spectral/_build/
+src/pitch/*.o
+src/pitch/*.s
+src/pitch/_build/
+src/onset/*.o
+src/onset/*.s
+src/onset/_build/
+src/notes/*.o
+src/notes/*.s
+src/notes/_build/
+src/io/*.o
+src/io/*.s
+src/io/_build/
+src/effects/*.o
+src/effects/*.s
+src/effects/_build/
+src/x68k/*.o
+src/x68k/*.s
+src/x68k/_build/
