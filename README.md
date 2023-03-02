@@ -57,6 +57,7 @@ PCMデータファイル名をコマンドライン引数として指定して�
 
 ### Special Thanks
 
+* KMD 技術情報およびサンプルデータ提供 thanks to かきうちさん / X68PROさん
 * xdev68k thanks to ファミべのよっしんさん
 * HAS060.X on run68mac thanks to YuNKさん / M.Kamadaさん / GOROmanさん
 * HLK301.X on run68mac thanks to SALTさん / GOROmanさん
