@@ -6,10 +6,7 @@
 #include <doslib.h>
 #include <aubio.h>
 
-#define VERSION "0.1.0 (2023/03/02)"
-
-#define AUBIO_WIN_SIZE (1024)      // FFT size
-#define AUBIO_HOP_SIZE (512)       // HOP size
+#define VERSION "0.2.0 (2023/03/04)"
 
 #define FORMAT_RAW  (0)
 #define FORMAT_WAVE (1)
@@ -45,11 +42,41 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
   printf("BPMCHK.X - PCM data BPM checker version " VERSION " by tantan\n");
 
   if (argc < 2) {
-    printf("usage: bpmchk <pcm-file[.s(32|44|48)|.m(32|44|48)|.wav]\n");
+    printf("usage: bpmchk <pcm-file[.sXX|.mXX|.wav]> [hop-size(128-4096,default:512)] [frame-size(512-16384,default:1024)]\n");
     return rc;
   }
 
   uint8_t* pcm_file_name = argv[1];
+  uint8_t* pcm_file_ext = pcm_file_name + strlen(pcm_file_name) - 4;
+
+  if (stricmp(pcm_file_ext,".s32") != 0 &&
+      stricmp(pcm_file_ext,".s44") != 0 &&
+      stricmp(pcm_file_ext,".s48") != 0 &&
+      stricmp(pcm_file_ext,".m32") != 0 &&
+      stricmp(pcm_file_ext,".m44") != 0 &&
+      stricmp(pcm_file_ext,".m48") != 0 &&
+      stricmp(pcm_file_ext,".wav") != 0) {
+        printf("error: unsupported format file.\n");
+        return rc;
+      }
+
+  uint_t hop_size = 512;
+  if (argc >= 3) {
+    hop_size = atoi(argv[2]);
+    if (hop_size < 128 || hop_size > 4096) {
+      printf("error: hop-size must be 128-4096.\n");
+      return rc;
+    }
+  }
+
+  uint_t frame_size = 2048;
+  if (argc >= 4) {
+    frame_size = atoi(argv[3]);
+    if (frame_size < 512 || frame_size > 16378) {
+      printf("error: frame-size must be 512-16378.\n");
+      return rc;
+    }
+  }
 
   FILE* fp = fopen(pcm_file_name, "rb");
   if (fp == NULL) {
@@ -70,7 +97,7 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
     pcm_format = FORMAT_WAVE;
   }
 
-  aubio_source_t* aubio_source = new_aubio_source(pcm_file_name, 0, AUBIO_HOP_SIZE);
+  aubio_source_t* aubio_source = new_aubio_source(pcm_file_name, 0, hop_size);
 
   if (pcm_freq == 0) {
     pcm_freq = aubio_source_get_samplerate(aubio_source);
@@ -96,15 +123,15 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
     printf("PCM duration  : %d [frames]\n", pcm_duration);
   }
 
-  fvec_t* aubio_buffer = new_fvec( AUBIO_HOP_SIZE );
+  fvec_t* aubio_buffer = new_fvec( hop_size );
   uint_t n_frames = 0;
   uint_t frames_read = 0;
   uint_t last_beat_pos = 0;
   uint_t measure_count = 0;
 
-  aubio_tempo_t * o = new_aubio_tempo("default", AUBIO_WIN_SIZE, AUBIO_HOP_SIZE, pcm_freq);
+  aubio_tempo_t * o = new_aubio_tempo("default", frame_size, hop_size, pcm_freq);
   fvec_t* tempo_out = new_fvec(2);
-  float delay = 4.0f * AUBIO_HOP_SIZE;
+  //float delay = 4.0f * hop_size;
 
   static smpl_t beat_times[ MAX_BEAT_TIMES ];
   size_t beat_ofs = 0;
@@ -140,7 +167,7 @@ int32_t main(int32_t argc, uint8_t* argv[]) {
       break;
     }
 
-  } while ( frames_read == AUBIO_HOP_SIZE );
+  } while ( frames_read == hop_size );
 
   if (!abort) {
     printf("\n\nFinished.\n");
